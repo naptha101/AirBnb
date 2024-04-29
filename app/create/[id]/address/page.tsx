@@ -44,9 +44,11 @@ const page = ({params}:{params:{id:string}}) => {
                        <SelectItem key={item.value} value={item.value}>
                         {item.flag}{item.label}/{item.region}
                        </SelectItem>
+                       
                         ))
 
                         }
+                      dsvdsv
                     </SelectGroup>
                 </SelectContent>
              </Select>
