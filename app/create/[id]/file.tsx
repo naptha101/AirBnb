@@ -1,11 +1,3 @@
-import React from 'react'
 
-type Props = {}
+"Hello 22322"
 
-const file = (props: Props) => {
-  return (
-    <div>file</div>
-  )
-}
-
-export default file
