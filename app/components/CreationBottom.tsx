@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import React from 'react'
-import Selectedbutton from './Selectedbutton'
+import {Selectedbutton} from './Selectedbutton'
 
 type Props = {}
 

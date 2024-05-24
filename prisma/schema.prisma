@@ -1,45 +1,58 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// Comments about Prisma schema and Prisma Accelerate
+// can be placed here
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider          = "postgresql"
-  url               = env("DATABASE_URL")
-  directUrl         = env("DIRECT_URL")
-}
-model User{
-  id String @id @unique 
-  email String
-  firstName String
-  lastName String
-  profileName String?
-  home Home[]
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
-model Home{
-  id String @id @default(uuid())
+model User {
+  id           String  @id @unique
+  email        String
+  firstName    String
+  lastName     String
+  profileName  String?
 
-  title String?
-   description String?
-   guests String?
-   bedrooms String?
-   bathrooms String?
-   country String?
-   photo String?
-   price Int?
-   categoryName String?
- 
- addedCategory Boolean @default(false)
- addedDescription Boolean @default(false)
-  addedLocation Boolean @default(false)
-   createdAt DateTime @default(now())
-   User User? @relation(fields: [userId], references: [id])
-   userId String? 
+  Favorite    Favorite[]
+  home         Home[]
+}
 
+model Home {
+  id           String  @id @default(uuid())
+
+  title        String?
+  description  String?
+  guests       String?
+  bedrooms     String?
+  bathrooms    String?
+  country      String?
+  photo        String?
+  price        Int?
+  categoryName String?
+
+  Favorite    Favorite[]
+
+  addedCategory Boolean @default(false)
+  addedDescription Boolean @default(false)
+  addedLocation  Boolean @default(false)
+  createdAt     DateTime @default(now())
+
+  User         User?    @relation(fields: [userId], references: [id])
+  userId       String?
+}
+
+model Favorite {
+  id          String  @id @default(uuid())
+
+  User        User?    @relation(fields: [userId], references: [id])
+  userId      String?
+  Home        Home?    @relation(fields: [homeId], references: [id])
+  homeId      String?
+
+  createAt    DateTime @default(now())
 }

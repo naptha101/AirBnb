@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation"
 import prisma from "./libs/db"
 import { Supabase } from "./libs/SupaClient";
+import { revalidatePath } from "next/cache";
 
 
 export async function createAirbnb({userId}:{userId:string}){
@@ -35,7 +36,18 @@ export async function createAirbnb({userId}:{userId:string}){
     else if(data.addedCategory&&data.addedDescription&&!data.addedLocation){
        return  redirect(`/create/${data.id}/address`);
     }
-    
+    else{
+        const data= await prisma.home.create({
+            data:{
+                userId:userId
+            }
+        }).catch((err)=>{
+            console.log(err);
+        })
+        //console.log(data);
+       return    redirect(`/create/${data?.id}/structure`);
+
+    }
 }
 
 export async function createCategory (formData:FormData) {
@@ -107,4 +119,33 @@ export async function address(formData:FormData){
     });
     
    redirect('/');
+}
+
+export async function FavNot(formData:FormData) {
+    const homeId=formData.get("homeId") as string;
+    const userId=formData.get("userId") as string;
+    const pathname=formData.get("pathname") as string;
+    const data=await prisma.favorite.create({
+        data:{
+            homeId:homeId,
+            userId:userId
+        }
+    })
+
+    revalidatePath(pathname);
+}
+
+export async function FavDel(formData:FormData) {
+    const favouriteId=formData.get("favouriteId") as string;
+    const userId=formData.get("userId") as string;
+    const pathname=formData.get("pathname") as string;
+
+    const data=await prisma.favorite.delete({
+        where:{
+         id:favouriteId,
+         userId:userId   
+        }
+    })
+
+    revalidatePath(pathname);
 }
