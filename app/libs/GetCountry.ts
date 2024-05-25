@@ -9,10 +9,13 @@ const countryFct=countries.map((item)=>({
     region:item.region
 }))
 export const useCountries:any=()=>{
+   // console.log(countryFct);
     const getAllCountries=()=>     countryFct
     
     const getCountryByValue=(value:string)=>{
-       return countryFct.find((item)=>item.value===value)
+     //console.log(countryFct)
+
+       return countryFct.find((item)=> item.value===value)
     }
     return{
         getAllCountries,

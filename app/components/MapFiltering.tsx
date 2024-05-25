@@ -12,7 +12,7 @@ const MapFiltering = (props: Props) => {
     const searchParams = useSearchParams();
     const pathName = usePathname();
  const search=searchParams.get('filter');
- console.log(search);
+
     const querySearch = useCallback((name: string, value: string) => {
         const params = new URLSearchParams(searchParams.toString());
         params.set(name, value);
