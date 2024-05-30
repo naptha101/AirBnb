@@ -4,7 +4,8 @@ import { redirect } from "next/navigation"
 import prisma from "./libs/db"
 import { Supabase } from "./libs/SupaClient";
 import { revalidatePath } from "next/cache";
-
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+const nodemailer=require('nodemailer');
 
 export async function createAirbnb({userId}:{userId:string}){
     "use server"
@@ -149,3 +150,68 @@ export async function FavDel(formData:FormData) {
 
     revalidatePath(pathname);
 }
+
+export async function MakeReservation(formData:FormData){
+    const homeId=formData.get("homeId") as string;
+    const userId=formData.get("userId") as string;
+    const startDate=formData.get("startDate") as string;
+    const endDate=formData.get("endDate") as string;
+ const {getUser}=await getKindeServerSession();
+ const user=await getUser();
+
+ const homeData = await prisma.home.findUnique({
+    where:{
+        id:homeId
+    },
+    select:{
+        title:true,
+        description:true,
+        price:true,
+        country:true,
+
+    }
+ });
+    const data=await prisma.Reservation.create({
+        data:{
+            homeId:homeId,
+            userId:userId,
+            startDate:startDate,
+            endDate:endDate
+            }
+            });
+
+             await MailController({
+                email: user?.email, 
+                startDate: new Date(startDate), 
+                endDate: new Date(endDate), 
+                homeInfo: homeData,
+                homeId: homeId
+              });
+            
+              // Assuming you have a redirect function defined somewhere
+              redirect('/');
+            }
+            
+            export async function MailController({ email, startDate, endDate, homeInfo, homeId }: { email: string|undefined|null, startDate: Date, endDate: Date, homeInfo: any, homeId: string }): Promise<void> {
+              var transport = nodemailer.createTransport({
+                host: "sandbox.smtp.mailtrap.io",
+                port: 2525,
+                auth: {
+                  user: process.env.MAIL_USER!,
+                  pass: process.env.MAIL_PASS!
+                }
+              });
+            
+              const mailoption = {
+                from: "yashverma2121212121@gmail.com",
+                to: email,
+                subject: `Reservation from ${startDate} to ${endDate}`,
+                html: `
+                  <p>You made a reservation for hotel ${homeInfo.title} at ${homeInfo.country}</p>
+                  <p>Click: <a href="http://localhost:3000/home/${homeId}">Here</a> to view your house and details</p>
+                `
+              };
+            
+              const mail = await transport.sendMail(mailoption);
+              console.log(mail);
+            }

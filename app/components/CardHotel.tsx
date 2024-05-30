@@ -41,7 +41,7 @@ isInFavourite,FavId,pathname
                 <Image className='rounded-lg' src={`https://mdqbkdqhsopdlyiirink.supabase.co/storage/v1/object/public/Images/${photo}`} fill alt='Image' ></Image>
             </div>
 
-            <Link className='p-2 pb-0' href='/'>
+            <Link className='p-2 pb-0' href={`/home/${id}`}>
                 <h1>
                     {countryName?.flag}/ {countryName.label}
                     <br></br>

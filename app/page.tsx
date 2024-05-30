@@ -6,13 +6,18 @@ import SkeletonCard from "./components/SkeletonCard";
 import NoHotel from "./components/NoHotel";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
-const data1 = async ({ searchParams, userId }: { searchParams?: { filter?: string }, userId: string | undefined }) => {
+const data1 = async ({ searchParams, userId }: { searchParams?: { filter?: string,country?:string,guests?:string,rooms?:string,bathrooms?:string }, userId: string | undefined }) => {
   return await prisma.home.findMany({
     where: {
       addedCategory: true,
       addedDescription: true,
       addedLocation: true,
-      categoryName: searchParams?.filter ?? undefined
+      categoryName: searchParams?.filter ?? undefined,
+      country:searchParams?.country??undefined,
+      guests:searchParams?.guests??undefined,
+      bedrooms:searchParams?.rooms??undefined,
+      bathrooms:searchParams?.bathrooms??undefined
+
       
     },
     select: {
@@ -28,8 +33,8 @@ const data1 = async ({ searchParams, userId }: { searchParams?: { filter?: strin
   })
 }
 
-export default async function Home({ searchParams }: { searchParams?: { filter?: string } }) {
-  console.log(searchParams?.filter)
+export default async function Home({ searchParams }: { searchParams?: { filter?: string,country?:string,guests?:string,rooms?:string,bathrooms?:string } }) {
+  //console.log(searchParams?.filter)
   return (
     <main className="container  w-full mx-auto px-5 lg:px-10">
       <MapFiltering></MapFiltering>
@@ -40,11 +45,11 @@ export default async function Home({ searchParams }: { searchParams?: { filter?:
   );
 }
 
-export async function GetHome({ searchParams }: { searchParams?: { filter?: string } }) {
+export async function GetHome({ searchParams }: { searchParams?: { filter?: string,country?:string,guests?:string,rooms?:string,bathrooms?:string } }) {
   const { getUser } = await getKindeServerSession();
   const user = await getUser();
   const data = await data1({ searchParams: searchParams, userId: user?.id });
- // console.log(data);
+//  console.log(user);
  
   return (
     <>

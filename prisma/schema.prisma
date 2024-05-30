@@ -18,6 +18,7 @@ model User {
   lastName     String
   profileName  String?
 
+  Reservation  Reservation[]
   Favorite    Favorite[]
   home         Home[]
 }
@@ -36,7 +37,7 @@ model Home {
   categoryName String?
 
   Favorite    Favorite[]
-
+  Reservation Reservation[] 
   addedCategory Boolean @default(false)
   addedDescription Boolean @default(false)
   addedLocation  Boolean @default(false)
@@ -55,4 +56,16 @@ model Favorite {
   homeId      String?
 
   createAt    DateTime @default(now())
+}
+
+model Reservation{
+  id          String  @id @default(uuid())
+  startDate DateTime
+  endDate DateTime
+  createdAt DateTime @default(now())
+  home        Home?    @relation(fields: [homeId], references: [id])
+  homeId      String?
+  User        User?    @relation(fields: [userId], references: [id])
+  userId     String?
+
 }
