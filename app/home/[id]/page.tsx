@@ -3,7 +3,7 @@ import ComponentShell from "@/app/components/ComponentShell";
 import HomeMap from "@/app/components/HomeMap";
 import ReactCal from "@/app/components/ReactData";
 import { Reservationbutton } from "@/app/components/Selectedbutton";
-import { useCountries } from "@/app/libs/GetCountry";
+import { useCountries as usedCountries } from "@/app/libs/GetCountry";
 import prisma from "@/app/libs/db"
 import { Separator } from "@/components/ui/separator";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
@@ -44,7 +44,7 @@ return data;
 
 const page = async ({params}: {params:{id:string}}) => {
     const data=await fetchData(params.id as string );
-    const {getCountryByValue}=await useCountries();
+    const {getCountryByValue}=await usedCountries();
     const count=await getCountryByValue(data?.country);
    const {getUser}=await getKindeServerSession();
    const user=await getUser();
