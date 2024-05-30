@@ -48,7 +48,7 @@ const page = async (props: Props) => {
   );
 
 }
-export const SpreadData= async ()=>{
+ const SpreadData= async ()=>{
   const {getUser}=await getKindeServerSession();
   const user=await getUser();
 const data=await getData(user?.id as string);
