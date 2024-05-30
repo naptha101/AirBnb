@@ -20,7 +20,7 @@ const MapFiltering = (props: Props) => {
     }, [searchParams]);
 
     return (
-        <div className='flex overflow-x-scroll gap-x-2 w-screen noscroll justify-between px-2 py-3 md:px-6'>
+        <div className='flex overflow-scroll gap-x-2 w-[100vw] justify-between px-2 py-3 md:px-6'>
             {categoryItems.map((item) => (
                 <Link className={cn("flex flex-col justify-center items-center",search==item.title?" border-b-2 border-black":"")} key={item.id} href={`${pathName}?${querySearch('filter', item.title)}`}>
                     

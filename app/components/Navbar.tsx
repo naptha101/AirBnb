@@ -3,6 +3,7 @@ import React from 'react'
 import Image from 'next/image'
 import OIP from '../../public/R.png'
 import { UserNav } from './UserNav'
+import SearchComponent from './SearchComponent'
 
 type Props = {}
 
@@ -14,8 +15,7 @@ const Navbar = (props: Props) => {
         <Image src={OIP} width={70} height={70} alt='Logo'></Image>
        </Link>
        <div className='px-5 py-2 border-1 border  rounded-xl '>
-            <h1>Hello</h1>
-
+           <SearchComponent></SearchComponent>
         </div>
        <UserNav></UserNav>
         </div>

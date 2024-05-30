@@ -1,7 +1,7 @@
 "use client"
-import { MapContainer, TileLayer, useMap,Marker } from 'react-leaflet'
-//import 'leaflet/dist/leaflet.css'
-//import 'leaflet/dist/leaflet.css'
+import { MapContainer, TileLayer, useMap,Marker,Popup } from 'react-leaflet'
+import 'leaflet/dist/leaflet.css';
+import 'leaflet-defaulticon-compatibility';
 import { useCountries } from '../libs/GetCountry';
 import {  icon } from "leaflet";
 
@@ -12,21 +12,17 @@ const ICON = icon({
 });
 export default function Map({lacationValue}:{lacationValue:string}){
   const {getCountryByValue} =useCountries()
-const latlang=getCountryByValue(lacationValue)?.latLang;
+const position=getCountryByValue(lacationValue)?.latLang;
     return (
         
-        <MapContainer center={latlang??[51.505, -0.09]} className='w-[50vh] rounded-lg relative z-0' zoom={13} scrollWheelZoom={false}>
-  <TileLayer
-    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-  />
-
-  {/* <Marker position={[51.505, -0.09]}>
-    <Popup>
-      A pretty CSS3 popup. <br /> Easily customizable.
-    </Popup>
-  </Marker> */}
-   <Marker position={latlang ?? [52.505, -0.09]} icon={ICON} />
-</MapContainer>
+      <MapContainer center={position} zoom={13} style={{ height: '400px' }}>
+      <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
+      <Marker position={position} icon={ICON}>
+          <Popup>Here is your location</Popup>
+      </Marker>
+  </MapContainer>
     );
 }

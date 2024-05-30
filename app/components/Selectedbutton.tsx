@@ -12,7 +12,7 @@ type Props = {}
     <>
     {
     pending?(
-        <Button type='submit' size='lg'>
+        <Button disabled size='lg'>
           next
           <Loader2 className=' ml-2 animate-spin'></Loader2>
         </Button>
@@ -75,3 +75,22 @@ pending?
 )
 }
 
+export function Reservationbutton(props: Props) {
+  const {pending} = useFormStatus();
+return (
+  <>
+  {
+  pending?(
+      <Button type='submit' size='lg'>
+        Make a Reservation
+        <Loader2 className=' ml-2 animate-spin'></Loader2>
+      </Button>
+  ):(
+      <Button type='submit' size={'lg'} >
+      Make a Reservation
+      </Button>
+  )
+ }
+ </>
+)
+}

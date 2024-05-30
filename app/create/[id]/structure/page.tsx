@@ -1,6 +1,6 @@
 import { createCategory } from '@/app/action'
 import SelectedCategory from '@/app/components/SelectedCategory'
-import Selectedbutton from '@/app/components/Selectedbutton'
+import {Selectedbutton} from '@/app/components/Selectedbutton'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import React from 'react'
