@@ -85,4 +85,4 @@ const data=await getData(user?.id as string);
 
 }
 
-export default page
+export default page;
