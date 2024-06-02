@@ -1,8 +1,10 @@
+// import prisma from "@/app/libs/db";
 import prisma from "@/app/libs/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { NextResponse } from "next/server";
 
 export async function GET() {
+    
     try {
         const { getUser } = getKindeServerSession();
         const user = await getUser();
@@ -13,7 +15,7 @@ export async function GET() {
 
         let dbUser = await prisma.user.findUnique({
             where: {
-                id: user.id,
+                id: user?.id,
             },
         });
 
@@ -23,7 +25,7 @@ export async function GET() {
                     email: user.email ?? "",
                     firstName: user.given_name ?? "",
                     lastName: user.family_name ?? "",
-                    id: user.id,
+                    id: user?.id,
                     profileName: user.picture ?? `https://avatar.vercel.sh/${user.given_name}`,
                 },
             });
