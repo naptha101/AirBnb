@@ -4,7 +4,8 @@ import { Suspense } from "react";
 import prisma from "../libs/db";
 import NoHotel from "../components/NoHotel";
 import CardHotel from "../components/CardHotel";
-import { Skeleton } from "../page";
+import { Skeleton } from "../components/Skeleton";
+
 
 
 type Props = {}
@@ -41,6 +42,7 @@ const page = async (props: Props) => {
 
     //console.log(data);
       return (
+        
         <main className="container  w-full mx-auto px-5 lg:px-10">
         
         <Suspense fallback={<Skeleton></Skeleton>} >
@@ -51,7 +53,7 @@ const page = async (props: Props) => {
       );
     
     }
-    export const SpreadData= async ()=>{
+ const SpreadData= async ()=>{
     
       const {getUser}=await getKindeServerSession();
       const user=await getUser();

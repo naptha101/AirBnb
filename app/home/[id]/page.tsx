@@ -59,7 +59,8 @@ const page = async ({params}: {params:{id:string}}) => {
         
         <div className="flex flex-col items-center justify-center gap-5">
            
-                <h1 className="text-3xl align-start font-bold">{data?.title}</h1>
+                <h1 className="text-3xl w-full align-start font-bold">{data?.title}</h1>
+                <Separator className="h-[1px] bg-black" ></Separator>
             <div className="relative h-[550px] w-full">
             <Image className='rounded-lg ' fill src={`https://mdqbkdqhsopdlyiirink.supabase.co/storage/v1/object/public/Images/${data?.photo}`}  alt='Image' ></Image>
             </div>
@@ -98,7 +99,7 @@ const page = async ({params}: {params:{id:string}}) => {
   <ReactCal reservation={data?.Reservation } ></ReactCal>
   {
     user?.id ? <Reservationbutton></Reservationbutton>:
-    <Link href={'/login'}  className="bg-black text-white font-bold p-2 rounded-lg w-[200px]">Login to make Reservation</Link>
+    <Link href={'https://airbh.kinde.com/auth/cx/_:nav&m:login&psid:6141abd1bd6b4e8fa092aed05db08d80'}  className="bg-black text-white font-bold p-2 rounded-lg w-[200px]">Login to make Reservation</Link>
     
 
   }

@@ -5,6 +5,7 @@ import prisma from "./libs/db";
 import SkeletonCard from "./components/SkeletonCard";
 import NoHotel from "./components/NoHotel";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { Skeleton } from "./components/Skeleton";
 
 const data1 = async ({ searchParams, userId }: { searchParams?: { filter?: string,country?:string,guests?:string,rooms?:string,bathrooms?:string }, userId: string | undefined }) => {
   return await prisma.home.findMany({
@@ -36,6 +37,7 @@ const data1 = async ({ searchParams, userId }: { searchParams?: { filter?: strin
 export default async function Home({ searchParams }: { searchParams?: { filter?: string,country?:string,guests?:string,rooms?:string,bathrooms?:string } }) {
   //console.log(searchParams?.filter)
   return (
+    
     <main className="container  w-full mx-auto px-5 lg:px-10">
       <MapFiltering></MapFiltering>
       <Suspense fallback={<Skeleton></Skeleton>} key={searchParams?.filter}>
@@ -45,7 +47,7 @@ export default async function Home({ searchParams }: { searchParams?: { filter?:
   );
 }
 
-export async function GetHome({ searchParams }: { searchParams?: { filter?: string,country?:string,guests?:string,rooms?:string,bathrooms?:string } }) {
+ async function GetHome({ searchParams }: { searchParams?: { filter?: string,country?:string,guests?:string,rooms?:string,bathrooms?:string } }) {
   const { getUser } = await getKindeServerSession();
   const user = await getUser();
   const data = await data1({ searchParams: searchParams, userId: user?.id });
@@ -79,13 +81,3 @@ export async function GetHome({ searchParams }: { searchParams?: { filter?: stri
   );
 }
 
-export async function Skeleton(params: any) {
-  return (
-    <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-col-2 gap-8 mt-8">
-      <SkeletonCard></SkeletonCard>
-      <SkeletonCard></SkeletonCard>
-      <SkeletonCard></SkeletonCard>
-      <SkeletonCard></SkeletonCard>
-    </div>
-  );
-}

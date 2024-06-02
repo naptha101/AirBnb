@@ -4,7 +4,8 @@ import { redirect } from "next/navigation"
 import { Suspense, use } from "react"
 import NoHotel from "../components/NoHotel"
 import CardHotel from "../components/CardHotel"
-import { Skeleton } from "../page"
+import { Skeleton } from "../components/Skeleton"
+
 
 
 
@@ -44,7 +45,7 @@ async function page(props:Props) {
     );
   }
 
-export const PageData = async (props: Props) => {
+ const PageData = async (props: Props) => {
     const { getUser } = await getKindeServerSession();
   const user = await getUser();
 
