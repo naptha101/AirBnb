@@ -1,11 +1,13 @@
+import { Skeleton } from "@/app/components/Skeleton"
 import SkeletonCard from "@/app/components/SkeletonCard"
-import { Skeleton } from "@/app/page"
+
 
 
 type Props = {}
 
 const loading = (props: Props) => {
   return (
+    
     <div className="w-[75%] mx-auto mt-10">
         <Skeleton className="h-4 w-1/3"></Skeleton>
         <Skeleton className="w-full h-[550px] mt-5"></Skeleton>

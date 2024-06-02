@@ -4,7 +4,8 @@ import NoHotel from "../components/NoHotel";
 import CardHotel from "../components/CardHotel";
 import MapFiltering from "../components/MapFiltering";
 import { Suspense } from "react";
-import { Skeleton } from "../page";
+import { Skeleton } from "../components/Skeleton";
+
 
 
 type Props = {}
@@ -48,7 +49,7 @@ const page = async (props: Props) => {
   );
 
 }
-export const SpreadData= async ()=>{
+ const SpreadData= async ()=>{
   const {getUser}=await getKindeServerSession();
   const user=await getUser();
 const data=await getData(user?.id as string);
@@ -63,16 +64,16 @@ const data=await getData(user?.id as string);
           data.map((item: any) => (
             
             <CardHotel
-            key={item.Home.id}
-              description={item.Home.description as string}
-              id={item.Home.id as string}
-              price={item.Home.price as number}
-              photo={item.Home.photo as string}
+            key={item?.Home?.id}
+              description={item?.Home?.description as string}
+              id={item?.Home?.id as string}
+              price={item?.Home?.price as number}
+              photo={item?.Home?.photo as string}
               userId={user?.id}
-              country={item.Home.country as string}
+              country={item?.Home?.country as string}
               isInFavourite={item?.Home.Favorite.length > 0 ? true:false}
-              FavId={item?.Home.Favorite[0]?.id as string}
-              pathname="/"
+              FavId={item?.Home?.Favorite[0]?.id as string}
+              pathname="/favorites"
               >
             </CardHotel>
           ))}
@@ -84,4 +85,4 @@ const data=await getData(user?.id as string);
 
 }
 
-export default page
+export default page;

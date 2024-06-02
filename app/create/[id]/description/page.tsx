@@ -1,6 +1,7 @@
 import { createRoom } from '@/app/action'
 import Counter from '@/app/components/Counter'
 import CreationBottom from '@/app/components/CreationBottom'
+import ImageInput from '@/app/components/ImageInput'
 import { Card, CardHeader } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
@@ -13,30 +14,27 @@ const page = ({params}: {params:{id:string}}) => {
   return (
     <div >
    <div className='w-3/5 mx-auto'>
-    <h1>Describe your Home!..</h1>
+    <h1 className='text-[30px] font-bold font-sans underline'>Describe your Home!..</h1>
     </div>
     <form
     action={createRoom }
-     className='w-3/5 mx-auto my-10'
+     className='w-3/5 mx-auto my-10 flex flex-col gap-4'
     >
       <input hidden name='homeId' value={params.id}></input>
         <div className='flex flex-col gap-y-2'>
-        <label>Title</label>
+        <label className='text-[18px]'>Title</label>
         <Input name='title' type='text' required title='Enter Title'></Input>
         </div>
         <div className='flex flex-col gap-y-2'>
-        <label>Description</label>
+        <label className='text-[18px]'>Description</label>
         <Textarea name='description'  required title='Enter Description'></Textarea>
        
         </div>
         <div className='flex flex-col gap-y-2'>
-        <label>Price</label>
+        <label className='text-[18px]'>Price</label>
         <Input name='price' type='number' required title='Enter price' min={10}></Input>
         </div>
-        <div className='flex flex-col gap-y-2'>
-        <label>Image</label>
-        <Input name='Image' type='file' required  min={10}></Input>
-        </div>
+       <ImageInput></ImageInput>
         <Card>
           <CardHeader className='flex flex-col gap-y-3'>
        <div className='flex p-2 justify-between'>
