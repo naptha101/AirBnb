@@ -6,8 +6,11 @@ import SkeletonCard from "./components/SkeletonCard";
 import NoHotel from "./components/NoHotel";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { Skeleton } from "./components/Skeleton";
+import {unstable_noStore as nocache} from 'next/cache'
 
 const data1 = async ({ searchParams, userId }: { searchParams?: { filter?: string,country?:string,guests?:string,rooms?:string,bathrooms?:string }, userId: string | undefined }) => {
+ 
+ nocache();
   return await prisma.home.findMany({
     where: {
       addedCategory: true,

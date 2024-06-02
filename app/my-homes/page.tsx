@@ -6,11 +6,11 @@ import NoHotel from "../components/NoHotel"
 import CardHotel from "../components/CardHotel"
 import { Skeleton } from "../components/Skeleton"
 
-
+import {unstable_noStore as nocache} from 'next/cache'
 
 
 type Props = {}
-
+nocache();
 async function GetData(userId:any) {
     const data=await prisma.home.findMany({
         where:{userId:userId,
