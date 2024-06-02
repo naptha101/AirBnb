@@ -5,11 +5,12 @@ import CardHotel from "../components/CardHotel";
 import MapFiltering from "../components/MapFiltering";
 import { Suspense } from "react";
 import { Skeleton } from "../components/Skeleton";
-
+import {unstable_noStore as nocache} from 'next/cache'
 
 
 type Props = {}
 async function getData(userId:string) {
+  nocache();
   const response= await prisma.favorite.findMany({
     where: {
        userId:userId    
