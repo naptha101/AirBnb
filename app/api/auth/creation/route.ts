@@ -16,7 +16,7 @@ export async function GET() {
 
         let dbUser = await prisma.user.findUnique({
             where: {
-                id: user?.id,
+                id: user.id,
             },
         });
 
@@ -26,13 +26,13 @@ export async function GET() {
                     email: user.email ?? "",
                     firstName: user.given_name ?? "",
                     lastName: user.family_name ?? "",
-                    id: user?.id,
+                    id: user.id,
                     profileName: user.picture ?? `https://avatar.vercel.sh/${user.given_name}`,
                 },
             });
         }
 
-        return NextResponse.redirect('http://localhost:3000/');
+        return NextResponse.redirect(process.env.URL as string);
     } catch (error) {
         console.error("Error in GET function:", error);
         throw new Error("An error occurred");
